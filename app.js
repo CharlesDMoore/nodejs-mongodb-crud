@@ -36,7 +36,7 @@ var bondProvider= new BondProvider();
 //index
 app.get('/', function(req, res){
   bondProvider.findAll(function(error, bonds){
-      res.json(JSON.stringify(bonds))
+      res.json(bonds)
   });
 });
 
