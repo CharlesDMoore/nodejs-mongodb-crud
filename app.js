@@ -52,16 +52,17 @@ app.post('/bond/new', function(req, res){
     bondProvider.save({
         taxable: req.param('taxable'),
         symbol: req.param('symbol'),
-        coupon_rate: req.para('coupon_rate'),
-        pmt_day: req.para('pmt_day'),
-        pmt_month: req.para('pmt_month'),
-        call_date: req.para('call_date'),
-        call_amount: req.para('call_amount'),
-        maturity: req.para('maturity'),
-        maturity_amount: req.para('maturity_amount'),
-        purchase_date: req.para('purchase_date')
+        coupon_rate: req.param('coupon_rate'),
+        pmt_day: req.param('pmt_day'),
+        pmt_month: req.param('pmt_month'),
+        call_date: req.param('call_date'),
+        call_amount: req.param('call_amount'),
+        maturity: req.param('maturity'),
+        maturity_amount: req.param('maturity_amount'),
+        purchase_date: req.param('purchase_date')
 
     }, function( error, docs) {
+        res.statusMessage('WHATS GOOOOOOOD AMERICA?')
         res.redirect('/')
     });
 });
