@@ -63,7 +63,7 @@ app.post('/bond/new', function(req, res){
 
     }, function( error, docs) {
         res.statusMessage('WHATS GOOOOOOOD AMERICA?')
-        res.redirect('/')
+        
     });
 });
 
@@ -108,7 +108,7 @@ app.post('/bond/:id/edit', function(req, res) {
 //delete an bond
 app.get('/bond/:id/delete', function(req, res) {
 	bondProvider.delete(req.params.id, function(error, docs) {
-		res.redirect('/')
+		res.statusMessage(res.statusCode)
 	});
 });
 
