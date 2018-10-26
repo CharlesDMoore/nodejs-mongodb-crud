@@ -4,10 +4,10 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
+  , bond = require('./routes/bond')
   , http = require('http')
   , path = require('path')
-  , EmployeeProvider = require('./employeeprovider').EmployeeProvider;
+  , BondProvider = require('./bondprovider').BondProvider;
 
 var app = express();
 
@@ -29,62 +29,87 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var employeeProvider= new EmployeeProvider();
+var bondProvider= new BondProvider();
 
 //Routes
 
 //index
 app.get('/', function(req, res){
-  employeeProvider.findAll(function(error, emps){
+  bondProvider.findAll(function(error, emps){
       res.render('index', {
-            title: 'Employees',
-            employees:emps
+            title: 'Bonds',
+            bonds:emps
         });
   });
 });
 
-//new employee
-app.get('/employee/new', function(req, res) {
-    res.render('employee_new', {
-        title: 'New Employee'
+//new bond
+app.get('/bond/new', function(req, res) {
+    res.render('bond_new', {
+        title: 'New bond'
     });
 });
 
-//save new employee
-app.post('/employee/new', function(req, res){
-    employeeProvider.save({
-        name: req.param('name'),
-        title: req.param('title')
+//save new bond
+app.post('/bond/new', function(req, res){
+    bondProvider.save({
+        taxable: req.param('taxable'),
+        symbol: req.param('symbol'),
+        coupon_rate: req.para('coupon_rate'),
+        pmt_day: req.para('pmt_day'),
+        pmt_month: req.para('pmt_month'),
+        call_date: req.para('call_date'),
+        call_amount: req.para('call_amount'),
+        maturity: req.para('maturity'),
+        maturity_amount: req.para('maturity_amount'),
+        purchase_date: req.para('purchase_date')
+
     }, function( error, docs) {
         res.redirect('/')
     });
 });
 
-//update an employee
-app.get('/employee/:id/edit', function(req, res) {
-	employeeProvider.findById(req.params.id, function(error, employee) {
-		res.render('employee_edit',
+//update an bond
+app.get('/bond/:id/edit', function(req, res) {
+	bondProvider.findById(req.params.id, function(error, bond) {
+		res.render('bond_edit',
 		{
-			_id: employee._id.toHexString(),
-			name: employee.name,
-			title: employee.title,
+			_id: bond._id.toHexString(),
+			taxable: req.param('taxable'),
+        symbol: req.param('symbol'),
+        coupon_rate: req.para('coupon_rate'),
+        pmt_day: req.para('pmt_day'),
+        pmt_month: req.para('pmt_month'),
+        call_date: req.para('call_date'),
+        call_amount: req.para('call_amount'),
+        maturity: req.para('maturity'),
+        maturity_amount: req.para('maturity_amount'),
+        purchase_date: req.para('purchase_date')
 		});
 	});
 });
 
-//save updated employee
-app.post('/employee/:id/edit', function(req, res) {
-	employeeProvider.update(req.params.id,{
-		name: req.param('name'),
-		title: req.param('title')
+//save updated bond
+app.post('/bond/:id/edit', function(req, res) {
+	bondProvider.update(req.params.id,{
+		taxable: req.param('taxable'),
+        symbol: req.param('symbol'),
+        coupon_rate: req.para('coupon_rate'),
+        pmt_day: req.para('pmt_day'),
+        pmt_month: req.para('pmt_month'),
+        call_date: req.para('call_date'),
+        call_amount: req.para('call_amount'),
+        maturity: req.para('maturity'),
+        maturity_amount: req.para('maturity_amount'),
+        purchase_date: req.para('purchase_date')
 	}, function(error, docs) {
 		res.redirect('/')
 	});
 });
 
-//delete an employee
-app.get('/employee/:id/delete', function(req, res) {
-	employeeProvider.delete(req.params.id, function(error, docs) {
+//delete an bond
+app.get('/bond/:id/delete', function(req, res) {
+	bondProvider.delete(req.params.id, function(error, docs) {
 		res.redirect('/')
 	});
 });
